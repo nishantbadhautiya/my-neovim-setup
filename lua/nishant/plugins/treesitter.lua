@@ -15,8 +15,9 @@ return {
 			highlight = {
 				enable = true,
 			},
-			-- enable indentation
-			indent = { enable = true },
+			-- treesitter indent is broken on Neovim 0.12 (archived master branch: kind-eq? predicate errors),
+			-- which drops the cursor to column 0 inside {}. Use Neovim's built-in filetype indenters instead.
+			indent = { enable = false },
 			-- enable autotagging (w/ nvim-ts-autotag plugin)
 			autotag = {
 				enable = true,
