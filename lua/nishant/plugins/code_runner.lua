@@ -7,10 +7,12 @@ return {
 			filetype = {
 				java = "cd $dir && javac $fileName && java $fileNameWithoutExt", -- Compiling and running Java
 				python = "python3 -u $file", -- Running Python scripts
-				typescript = "deno run $file", -- Running TypeScript files with Deno
+				typescript = "node $file", -- Node 22.18+/23.6+ runs .ts natively (type stripping)
 				javascript = "node $file", -- Running Node.js for JavaScript
 				c = "cd $dir && gcc $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt", -- C compilation and execution
-				cpp = "cd $dir && g++ $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt", -- C++ compilation and execution
+				-- C++ (DSA): C++20, warnings + sanitizers for catching bugs; reads input.txt if present
+				cpp = "cd $dir && g++ -std=c++20 -O2 -Wall -Wextra -Wshadow -DLOCAL -fsanitize=address,undefined $fileName -o /tmp/$fileNameWithoutExt"
+					.. " && if [ -f input.txt ]; then /tmp/$fileNameWithoutExt < input.txt; else /tmp/$fileNameWithoutExt; fi",
 				sh = "bash $file", -- Running Bash scripts
 				rust = "cd $dir && rustc $fileName && ./$fileNameWithoutExt", -- Rust support
 			},

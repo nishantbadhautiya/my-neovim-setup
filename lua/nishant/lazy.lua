@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -15,6 +15,9 @@ require("lazy").setup({ { import = "nishant.plugins" }, { import = "nishant.plug
 	checker = {
 		enabled = true,
 		notify = false,
+	},
+	rocks = {
+		enabled = false, -- no plugin needs luarocks
 	},
 	change_detection = {
 		notify = false,

@@ -1,6 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	event = { "BufReadPre", "BufNewFile" },
+	branch = "master",
 	build = ":TSUpdate",
 	dependencies = {
 		"windwp/nvim-ts-autotag",
@@ -24,6 +25,11 @@ return {
 			ensure_installed = {
 				"json",
 				"javascript",
+				"typescript",
+				"tsx",
+				"jsdoc",
+				"yaml",
+				"dockerfile",
 				"html",
 				"css",
 				"markdown_inline",
@@ -34,6 +40,7 @@ return {
 				"query",
 				"vimdoc",
 				"c",
+				"cpp",
 				"python",
 			},
 			incremental_selection = {
