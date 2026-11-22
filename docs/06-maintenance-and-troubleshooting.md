@@ -6,7 +6,7 @@
 |---------|---------|---------------------|
 | `:Lazy` | **plugins** | `U` update all, `S` sync (install + update + clean), `X` remove unused, `L` log, `?` help, `q` close |
 | `:Mason` | **language servers and formatters** | `i` install, `X` uninstall, `u` update one, `U` update all, `/` filter, `g?` help |
-| `:TSUpdate` | **Treesitter syntax parsers** | `:TSInstall <lang>` adds one, e.g. `:TSInstall go` |
+| `:TSUpdate` | **Treesitter syntax parsers** | `:TSInstall <lang>` adds one, e.g. `:TSInstall go`. `:TSUninstall <lang>` removes one |
 
 An orange number in the statusline means plugin updates are available. Open `:Lazy` and press `U` when you have time.
 
@@ -49,7 +49,6 @@ nvim -c "Lazy restore"
 ### Warnings you can ignore
 
 - Mason: `cargo`, `Composer`, `PHP`, `Ruby`, `java`, `julia`, `luarocks`, `pip` not available (only needed for languages you don't use)
-- `tree-sitter executable not found` (only needed for building parsers from grammar)
 - `Unknown filetype 'ejs'`, `'jade'`, etc. under language servers (lists of optional filetypes)
 - Provider warnings for `perl`, `ruby`, and the `neovim` npm package
 
@@ -61,7 +60,7 @@ Example: Go.
    - Server names are listed at <https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md>.
    - For special settings, add `vim.lsp.config("gopls", { settings = { ... } })` in `lsp/lspconfig.lua`, next to the existing `clangd` and `lua_ls` blocks.
 2. **Formatter:** add `go = { "gofmt" }` to `formatters_by_ft` in `lua/nishant/plugins/formatting.lua`. If it isn't installed on your system, add it to `mason-tool-installer`'s list.
-3. **Syntax highlighting:** add `"go"` to `ensure_installed` in `lua/nishant/plugins/treesitter.lua`.
+3. **Syntax highlighting:** add `"go"` to the `parsers` list at the top of `lua/nishant/plugins/treesitter.lua`.
 4. **Run with `<leader>rr`:** add `go = "go run $file",` to `lua/nishant/plugins/code_runner.lua`.
 5. Restart Neovim.
 
@@ -105,7 +104,8 @@ keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<CR><Esc>", { desc = "Save file" })
 | icons show as boxes or `?` | set a Nerd Font in your terminal settings |
 | no errors, completion, or `K` in a file | `:checkhealth vim.lsp`. Is a server attached? If not, is it installed in `:Mason`? |
 | language server acting weird or stale | `<leader>rs` |
-| Neovim slow to open one huge file | `:TSBufDisable highlight` for that buffer |
+| Neovim slow to open one huge file | `:lua vim.treesitter.stop()` turns off Treesitter highlighting for that buffer |
+| `:TSInstall` fails | `tree-sitter --version` must be 0.26.1+ (from pacman, not npm), and `gcc` must work |
 | something broke after an update | roll back (see "Updating safely" above) |
 | startup errors after editing the config | read the error: it names the file and line. `nvim --clean` starts without your config |
 | copy/paste doesn't reach other apps | is `wl-clipboard` installed? `:checkhealth provider` → Clipboard |

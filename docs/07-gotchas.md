@@ -57,7 +57,7 @@ They work across **tmux panes** too (vim-tmux-navigator). For this to work insid
 - A project's `.prettierrc`, `.editorconfig`, or `.clang-format` overrides these defaults when formatting.
 - Re-indent a messy block: select it with `V`, then press `=`. For the whole file: `gg=G`.
 - The Lua files of **this config** use tabs (stylua's default). Don't be surprised when you edit them.
-- Auto-indent comes from Neovim's built-in indent rules, not Treesitter. Treesitter's indent module is turned off on purpose: its archived `master` branch is broken on Neovim 0.12 and dropped the cursor to column 0 inside `{}`. If you ever switch nvim-treesitter to its `main` branch, revisit this in `plugins/treesitter.lua`.
+- Auto-indent comes from Neovim's built-in indent rules, not Treesitter (Treesitter indent is still experimental). nvim-treesitter is on its `main` branch, which needs Neovim 0.12+. Its old `master` branch is archived and broken on 0.12: don't switch back to it.
 
 ## Saving formats the file
 
@@ -74,6 +74,13 @@ They work across **tmux panes** too (vim-tmux-navigator). For this to work insid
 
 - Neovim saves open files and splits per folder when you quit (except in `~`, `~/Downloads`, and similar folders).
 - They **aren't restored automatically**. Press `<leader>wr` (or `SPC wr` on the start screen).
+
+## Mouse hover
+
+- Resting the mouse on a word shows its type, like VSCode. It only works in Normal mode, in files with a language server.
+- To read a long popup, scroll it with the wheel, or click into it (or press `K`) and use `j`/`k`. `q` or `Esc` closes it. While the cursor is inside, moving the mouse won't close it.
+- Your terminal has to report mouse movement (kitty, alacritty, foot, wezterm and GNOME Terminal do). Inside tmux, add `set -g mouse on` to `~/.tmux.conf`.
+- Change the delay with `DELAY_MS` in `lua/nishant/core/mouse_hover.lua`.
 
 ## Language servers
 

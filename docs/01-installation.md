@@ -4,14 +4,15 @@
 
 | Tool | Why | Arch Linux package |
 |------|-----|--------------------|
-| Neovim **0.11+** (tested on 0.12) | the editor; the LSP setup uses 0.11+ APIs | `neovim` |
+| Neovim **0.12+** | the editor; nvim-treesitter's `main` branch and the built-in `:lsp` command need 0.12 | `neovim` |
 | git | downloads plugins | `git` |
 | make, gcc/g++ | builds telescope-fzf and LuaSnip; compiles your C++ | `base-devel` |
 | Node.js + npm | runs JS/TS and installs several language servers | `nodejs npm` (or fnm/nvm) |
 | python3 | installs the `black`/`isort` Python formatters | `python` |
 | ripgrep | text search across files (`<leader>fs`) | `ripgrep` |
 | fd | faster file finding (optional) | `fd` |
-| unzip, curl | Mason downloads | `unzip curl` |
+| unzip, curl, tar | Mason and Treesitter downloads | `unzip curl tar` |
+| tree-sitter CLI **0.26.1+** | compiles syntax parsers (use the package manager, **not npm**) | `tree-sitter-cli` |
 | wl-clipboard (Wayland) or xclip (X11) | system clipboard | `wl-clipboard` |
 | A **Nerd Font** set in your terminal | file and diagnostic icons | `ttf-jetbrains-mono-nerd` |
 
@@ -35,7 +36,7 @@ nvim
 
 1. **lazy.nvim** installs itself, then every plugin, at the versions in `lazy-lock.json`. A window shows progress. When it finishes, press `q`.
 2. **Mason** installs the language servers and formatters in the background (clangd, typescript-language-server, prettier, and others). Messages such as `prettier: installing` appear at the bottom of the screen. **Leave Neovim open for a minute or two** until they report `successfully installed`.
-3. **Treesitter** downloads syntax parsers the first time you open a file.
+3. **Treesitter** compiles its syntax parsers in the background (about a minute).
 4. Quit (`:qa`) and start `nvim` again.
 
 To check that everything worked:

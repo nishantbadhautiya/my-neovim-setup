@@ -63,12 +63,17 @@ return {
 				end, opts) -- jump to next diagnostic in buffer
 
 				opts.desc = "Show documentation for what is under cursor"
-				keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+				keymap.set("n", "K", function()
+					vim.lsp.buf.hover({ border = "rounded", max_width = 80, max_height = 20 })
+				end, opts) -- show documentation for what is under cursor
 
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>rs", "<cmd>lsp restart<CR>", opts) -- mapping to restart lsp if necessary (Nvim 0.12 built-in :lsp)
 			end,
 		})
+
+		-- VSCode-like: rest the mouse on a symbol to see its type/docs
+		require("nishant.core.mouse_hover").setup()
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		local severity = vim.diagnostic.severity

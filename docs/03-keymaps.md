@@ -78,7 +78,8 @@ These work in files that have a language server (C++, JS/TS, JSON, Lua, Python, 
 
 | Keys | Mode | Action |
 |------|------|--------|
-| `K` | N | **show documentation / type** of the thing under the cursor |
+| *rest the mouse on a word* | N | **VSCode-style hover**: type and docs pop up after ~0.4 s (see "Reading a hover popup" below) |
+| `K` | N | **show documentation / type** of the thing under the cursor (press `K` again to jump into the popup and scroll) |
 | `gd` | N | **go to definition** |
 | `gD` | N | go to declaration |
 | `gR` | N | show all references |
@@ -92,6 +93,18 @@ These work in files that have a language server (C++, JS/TS, JSON, Lua, Python, 
 | `]d` / `[d` | N | jump to next / previous error or warning |
 | `<leader>rs` | N | restart the language server (if it acts weird) |
 | `Ctrl-s` | I | show function signature / parameters while typing |
+
+### Reading a hover popup
+
+Works for both the mouse popup and the `K` popup:
+
+| Do | Result |
+|----|--------|
+| mouse wheel over the popup | scroll it |
+| click inside the popup, **or** press `K` again | the cursor moves into the popup |
+| `j` / `k`, `Ctrl-d` / `Ctrl-u`, `gg` / `G` (inside) | move and scroll like a normal buffer; `y` copies text |
+| `q` or `Esc` (inside) | close it and go back to your code |
+| move the cursor in your code / move the mouse to another word | the popup closes (only when you're **not** inside it) |
 
 Gutter icons: error, warning, `󰠠` hint, info.
 
@@ -183,6 +196,8 @@ Typical use: `yiw` on a word, move to another word, `siw`, move to the next, `si
 Typing `(` `[` `{` `"` `'` `` ` `` inserts the closing character. Pressing `Enter` between `{}` puts the cursor on an indented line in between. Typing the closing character when it's already next to the cursor just moves past it.
 
 ### Selecting code by structure (Treesitter)
+
+Uses Neovim 0.12's built-in node selection (`an` / `in` in Visual mode).
 
 | Keys | Mode | Action |
 |------|------|--------|
